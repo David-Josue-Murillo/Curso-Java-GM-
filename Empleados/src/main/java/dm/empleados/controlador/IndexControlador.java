@@ -53,4 +53,20 @@ public class IndexControlador {
         modelo.put("empleado", empleado); // Comparte el modelo con la vista
         return "editar"; // editar.jsp
     }
+
+    @RequestMapping(value="/editar", method = RequestMethod.POST)
+    public String editar(@ModelAttribute("empleadoForma") Empleado empleado){
+        logger.info("Empleado a editar "+empleado);
+        empleadoServicio.guardarEmpleado(empleado);
+        return "redirect:/"; // Redirecciona al path '/'
+    }
+
+    @RequestMapping(value="/eliminar", method = RequestMethod.GET)
+    public String eliminar(@RequestParam int idEmpleado){
+        Empleado empleado = empleadoServicio.buscarEmpleadoPorId(idEmpleado);
+        empleadoServicio.eliminarEmpleado(empleado);
+        logger.info("Empleado a eliminar "+empleado);
+
+        return "redirect:/"; // Redirecciona al path '/'
+    }
 }

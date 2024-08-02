@@ -2,7 +2,7 @@
 <%@ include file="comunes/navegacion.jsp"%>
 
 <div class="container">
-    <div class="text-center" style="margin: 30px">
+    <div class="text-center fw-bold" style="margin: 30px">
         <h3>Sistema de Empleados</h3>
     </div>
 
@@ -14,7 +14,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Departamento</th>
                 <th scope="col">Sueldo</th>
-                <th></th>
+                <th scope="col">Accion</th>
             </tr>
             </thead>
 
@@ -36,6 +36,13 @@
                             </c:url>
                         </c:set>
                         <a href="${urlEditar}" class="btn btn-warning btn-sm me-3">Editar</a>
+
+                        <c:set var="urlEliminar">
+                            <c:url value="/eliminar">
+                                <c:param name="idEmpleado" value="${empleado.idEmpleado}"/>
+                            </c:url>
+                        </c:set>
+                        <a href="${urlEliminar}" class="btn btn-danger btn-sm me-3">Eliminar</a>
                     </td>
                 </tr>
             </c:forEach>
