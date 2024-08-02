@@ -31,7 +31,7 @@
                     </td>
                     <td class="text-center">
                         <c:set var="urlEditar">
-                            <c:url value="/empleados/editar">
+                            <c:url value="/editar">
                                 <c:param name="idEmpleado" value="${empleado.idEmpleado}"/>
                             </c:url>
                         </c:set>

@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @Controller
@@ -27,7 +29,7 @@ public class IndexControlador {
         empleados.forEach((empleado) -> logger.info(empleado.toString()));
 
         // Retornar el modelo con la vista
-        modelo.put("empleados", empleados);
+        modelo.put("empleados", empleados); // Comparte el modelo con la vista
         return "index"; // index.jsp
     }
 
@@ -41,5 +43,14 @@ public class IndexControlador {
         logger.info("Empleado a agregar "+empleado);
         empleadoServicio.guardarEmpleado(empleado);
         return "redirect:/"; // Redirecciona al path '/'
+    }
+
+    @RequestMapping(value="/editar", method = RequestMethod.GET)
+    public String mostrarEditar(@RequestParam int idEmpleado, ModelMap modelo){
+        Empleado empleado = empleadoServicio.buscarEmpleadoPorId(idEmpleado);
+        logger.info("Empleado a editar "+empleado);
+
+        modelo.put("empleado", empleado); // Comparte el modelo con la vista
+        return "editar"; // editar.jsp
     }
 }
