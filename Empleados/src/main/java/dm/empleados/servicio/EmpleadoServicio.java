@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Service
+@Service // Indica que la clase es un servicio
 public class EmpleadoServicio implements IEmpleadoServicio{
 
     @Autowired // Inyeccion de dependencias
