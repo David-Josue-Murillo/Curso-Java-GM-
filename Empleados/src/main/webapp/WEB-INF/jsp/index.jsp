@@ -35,4 +35,3 @@
     </div>
 </div>
 
-<%@ include file="comunes/pie-pagina.jsp"%>

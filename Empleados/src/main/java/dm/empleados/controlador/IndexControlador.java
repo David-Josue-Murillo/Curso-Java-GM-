@@ -29,4 +29,9 @@ public class IndexControlador {
         modelo.put("empleados", empleados);
         return "index"; // index.jsp
     }
+
+    @RequestMapping(value="/agregar", method = RequestMethod.GET)
+    public String mostrarAgregar(){
+        return "agregar"; // agregar.jsp
+    }
 }
