@@ -1,3 +1,8 @@
+<!-- URLs de la aplicación -->
+<c:set var=urlInicio>
+    <c:url value="${application.contextPath}/"/>
+</c:set>
+
 <div class="container">
     <nav class="navbar navbar-expand-lg bg-light-subtle" data-bs-theme="dark">
         <div class="container-fluid">

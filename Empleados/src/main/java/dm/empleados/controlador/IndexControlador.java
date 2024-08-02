@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
@@ -33,5 +34,12 @@ public class IndexControlador {
     @RequestMapping(value="/agregar", method = RequestMethod.GET)
     public String mostrarAgregar(){
         return "agregar"; // agregar.jsp
+    }
+
+    @RequestMapping(value="/agregar", method = RequestMethod.POST)
+    public String agregar(@ModelAttribute("empleadoForma") Empleado empleado){
+        logger.info("Empleado a agregar "+empleado);
+        empleadoServicio.guardarEmpleado(empleado);
+        return "redirect:/"; // Redirecciona al path '/'
     }
 }
