@@ -4,25 +4,7 @@
 </head>
 
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Sistema de Contactos</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/agregar">Agregar Contacto</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div th:replace="~{componentes/nav::nav-section}">
 </div>
 
 <div class="container">
@@ -38,6 +20,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Celular</th>
                 <th scope="col">Email</th>
+                <th scope="col">Accion</th>
             </tr>
             </thead>
             <tbody>
@@ -46,6 +29,15 @@
                 <td th:text="${contacto.nombre}"></td>
                 <td th:text="${contacto.celular}"></td>
                 <td th:text="${contacto.email}"></td>
+                <td class="d-flex justify-content-center gap-3">
+                    <a th:href="@{/editar/{id}(id=${contacto.idContacto})}" class="btn btn-outline-warning btn-sm">
+                        Modificar
+                    </a>
+
+                    <a th:href="@{/eliminar?id=(${contacto.idContacto})}" class="btn btn-outline-danger btn-sm">
+                        Eliminar
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

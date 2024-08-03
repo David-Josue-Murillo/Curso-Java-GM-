@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{componentes/header::header-section(titulo='Editar')}">
+</head>
+
+<body>
+<div th:replace="~{componentes/nav::nav-section}">
+</div>
+
+<div class="container">
+    <div class="container text-center" style="margin:30px">
+        <h3>Editar Contacto</h3>
+    </div>
+
+    <div class="container w-50">
+        <form action="/editar" th:object="${contacto}" method="post">
+
+            <input type="hidden" th:field="*{idContacto}">
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}">
+            </div>
+
+            <div class="mb-3">
+                <label for="celular" class="form-label">Celular</label>
+                <input type="text" class="form-control" id="celular" name="celular" th:field="*{celular}">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" th:field="*{email}">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-outline-success btn-sm me-3">Editar</button>
+                <a class="btn btn-outline-danger btn-sm" href="/">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

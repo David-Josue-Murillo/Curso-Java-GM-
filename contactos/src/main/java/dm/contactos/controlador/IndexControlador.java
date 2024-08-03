@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +31,21 @@ public class IndexControlador {
         return "index";
     }
 
+    @GetMapping("/agregar")
+    public String mostrarAgregar() {
+        return "agregar";
+    }
 
+    @PostMapping("/agregar")
+    public String agregar(@ModelAttribute("formContacto") Contacto contacto) {
+        contactoServicio.guardarContacto(contacto);
+        return "redirect:/";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarEditar(@PathVariable(value="id") int idContacto, ModelMap modelo){
+        Contacto contacto = contactoServicio.buscarContactoPorId(idContacto);
+        modelo.put("contacto", contacto);
+        return "editar";
+    }
 }
