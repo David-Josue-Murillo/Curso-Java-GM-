@@ -1,4 +1,4 @@
-package gm.contactos;
+package dm.contactos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
