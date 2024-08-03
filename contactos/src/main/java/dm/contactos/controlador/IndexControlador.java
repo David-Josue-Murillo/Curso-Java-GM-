@@ -54,4 +54,10 @@ public class IndexControlador {
         contactoServicio.guardarContacto(contacto);
         return "redirect:/";
     }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable(value="id") int idContacto){
+        contactoServicio.eliminarContacto(idContacto);
+        return "redirect:/";
+    }
 }

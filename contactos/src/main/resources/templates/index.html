@@ -34,7 +34,7 @@
                         Modificar
                     </a>
 
-                    <a th:href="@{/eliminar?id=(${contacto.idContacto})}" class="btn btn-outline-danger btn-sm">
+                    <a th:href="@{/eliminar/{id}(id=${contacto.idContacto})}" class="btn btn-outline-danger btn-sm">
                         Eliminar
                     </a>
                 </td>
