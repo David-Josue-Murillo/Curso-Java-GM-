@@ -1,7 +1,12 @@
 package dm.rh.servicio;
 
-import org.springframework.stereotype.Service;
+import dm.rh.modelo.Empleado;
 
+import java.util.List;
 
 public interface IEmpleadoServicio {
+    public List<Empleado> listaEmpleados();
+    public Empleado buscarEmpleado(Integer idEmpleado);
+    public  void guardarEmpleado(Empleado empleado);
+    public  void eliminarEmpleado(Integer idEmpleado);
 }
