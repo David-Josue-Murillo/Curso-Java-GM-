@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
+import { Link } from "react-router-dom";
 
 export const ListadoEmpleado = () => {
 
@@ -11,23 +13,14 @@ export const ListadoEmpleado = () => {
         const response = await axios.get(url);
         setEmpleados(response.data);
     };
+
     useEffect(() => {
         cargarEmpleados();
     }, []);
 
-    
-
-    const onClickEdit = (id) => {
-        console.log(id);
-    }
-
-    const onClickDelete = (id) => {
-        console.log(id);
-    }
-
     return (
         <>
-            <h1 className="display-5 fw-bold text-center my-5">Sistema de Empleados</h1>
+            <h2 className="display-5 fw-bold text-center my-3">Lista de Empleados</h2>
             <div className="container">
                 <table className="table table-striped table-hover align-middle table-border">
                     <thead className="table-dark text-center">
@@ -40,16 +33,25 @@ export const ListadoEmpleado = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {empleados.map(empleados =>
-                            <tr key={empleados.idEmpleado}>
-                                <th scope="row" className="text-center">{empleados.idEmpleado}</th>
+                        {empleados.map((empleados, index) =>
+                            <tr key={empleados.idEmpleado} className="text-center">
+                                <th scope="row">{index + 1}</th>
                                 <td>{empleados.nombre}</td>
                                 <td>{empleados.departamento}</td>
-                                <td>{empleados.sueldo}</td>
+                                
+                                <td><NumericFormat 
+                                    value={empleados.sueldo} 
+                                    displayType={'text'} 
+                                    thousandSeparator={true} 
+                                    prefix={'$'} 
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}/>
+                                </td>
+
                                 <td className="d-flex justify-content-center gap-3">
-                                    <a href="#" className="btn btn-outline-warning btn-sm">
+                                    <Link to={`/editar/${empleados.idEmpleado}`} className="btn btn-outline-warning btn-sm">
                                         Modificar
-                                    </a>
+                                    </Link>
                                     <a href="#" className="btn btn-outline-danger btn-sm">
                                         Eliminar
                                     </a>

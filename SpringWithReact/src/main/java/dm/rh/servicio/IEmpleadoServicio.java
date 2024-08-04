@@ -7,6 +7,6 @@ import java.util.List;
 public interface IEmpleadoServicio {
     public List<Empleado> listaEmpleados();
     public Empleado buscarEmpleado(Integer idEmpleado);
-    public  void guardarEmpleado(Empleado empleado);
+    public Empleado guardarEmpleado(Empleado empleado);
     public  void eliminarEmpleado(Integer idEmpleado);
 }

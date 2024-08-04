@@ -1,14 +1,13 @@
 package dm.rh.controlador;
 
+import dm.rh.excepcion.RecursoNoEncontradoExcepcion;
 import dm.rh.modelo.Empleado;
 import dm.rh.servicio.EmpleadoServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +25,33 @@ public class EmpleadoControlador {
         List<Empleado> empleados = empleadoServicio.listaEmpleados();
         empleados.forEach((empleado) -> logger.info(empleado.toString()));
         return empleados;
+    }
+
+    @PostMapping("/empleados")
+    public Empleado agregarEmpleado(@RequestBody Empleado empleado) {
+        logger.info(empleado.toString());
+        return empleadoServicio.guardarEmpleado(empleado);
+    }
+
+    @GetMapping("/empleados/{id}")
+    public ResponseEntity<Empleado> obtenerEmpleado(@PathVariable Integer id) {
+        Empleado empleado = empleadoServicio.buscarEmpleado(id);
+        if (empleado == null) {
+            throw new RecursoNoEncontradoExcepcion("Empleado no encontrado con el id: " + id);
+        }
+        return ResponseEntity.ok(empleado);
+    }
+
+    @PutMapping("/empleados/{id}")
+    public ResponseEntity<Empleado> actualizarEmpleado(@PathVariable Integer id, @RequestBody Empleado empleado) {
+        Empleado empleadoActual = empleadoServicio.buscarEmpleado(id);
+        if (empleadoActual == null) {
+            throw new RecursoNoEncontradoExcepcion("Empleado no encontrado con el id: " + id);
+        }
+        empleadoActual.setNombre(empleado.getNombre());
+        empleadoActual.setDepartamento(empleado.getDepartamento());
+        empleadoActual.setSueldo(empleado.getSueldo());
+        empleadoServicio.guardarEmpleado(empleadoActual);
+        return ResponseEntity.ok(empleadoActual);
     }
 }
