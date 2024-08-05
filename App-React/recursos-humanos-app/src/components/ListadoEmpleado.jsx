@@ -18,6 +18,19 @@ export const ListadoEmpleado = () => {
         cargarEmpleados();
     }, []);
 
+    const onClickDelete = async(e) => {
+        e.preventDefault();
+        let resp = confirm('¿Estás seguro de eliminar este empleado?');
+        if (!resp) return;
+        onDeleteEmpledo(e);
+    }
+
+    const onDeleteEmpledo = async(e) => {
+        const id = e.target.getAttribute('data-id');
+        await axios.delete(`${url}/${id}`);
+        cargarEmpleados();
+    }
+
     return (
         <>
             <h2 className="display-5 fw-bold text-center my-3">Lista de Empleados</h2>
@@ -49,12 +62,18 @@ export const ListadoEmpleado = () => {
                                 </td>
 
                                 <td className="d-flex justify-content-center gap-3">
-                                    <Link to={`/editar/${empleados.idEmpleado}`} className="btn btn-outline-warning btn-sm">
+                                    <Link 
+                                        to={`/editar/${empleados.idEmpleado}`} 
+                                        className="btn btn-outline-warning btn-sm">
                                         Modificar
                                     </Link>
-                                    <a href="#" className="btn btn-outline-danger btn-sm">
+                                    
+                                    <button 
+                                        onClick={onClickDelete}
+                                        data-id={empleados.idEmpleado}
+                                        className="btn btn-outline-danger btn-sm">
                                         Eliminar
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         )}

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("rh-app") // (http:/localhost/8080/rh-app/
@@ -53,5 +55,17 @@ public class EmpleadoControlador {
         empleadoActual.setSueldo(empleado.getSueldo());
         empleadoServicio.guardarEmpleado(empleadoActual);
         return ResponseEntity.ok(empleadoActual);
+    }
+
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<Map<String, Boolean>> eliminarEmpleado(@PathVariable Integer id) {
+        Empleado empleado = empleadoServicio.buscarEmpleado(id);
+        if (empleado == null) {
+            throw new RecursoNoEncontradoExcepcion("Empleado no encontrado con el id: " + id);
+        }
+        empleadoServicio.eliminarEmpleado(id);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("Eliminado", Boolean.TRUE);
+        return ResponseEntity.ok(respuesta);
     }
 }

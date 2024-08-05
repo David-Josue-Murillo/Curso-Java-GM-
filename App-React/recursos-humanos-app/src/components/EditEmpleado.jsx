@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "../hook/useForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -11,32 +10,35 @@ export const EditEmpleado = () => {
 
     const {id} = useParams();
 
-    const [empleado, setEmpleado] = useState({});
+    
+    const [empleado, setEmpleado]=useState({
+        nombre:"",
+        departamento:"",
+        sueldo:""
+    })
 
-    const { formState ,onInputChange, onResetForm } = useForm({nombre: "", departamento: "", sueldo: 0 });
+    const{nombre, departamento, sueldo} = empleado
 
-    useEffect(() => { 
-        setEmpleado(formState);
-    }, [formState]);
-
-
-    useEffect(() => {
+    useEffect(()=>{
         cargarEmpleado();
-    }, []);
+    },[])
 
-    const cargarEmpleado = async() => {
-        const response = await axios.get(`${url}/${id}`);
-        setEmpleado(response.data);
-    };
+    const cargarEmpleado = async () => {
+        const resultado = await axios.get(`${url}/${id}`)
+        setEmpleado(resultado.data);
+    }
 
-    const onSubmit = async(e) => {
+    const onInputChange = (e) => {
+        //spread operator ... (expandir los atributos)
+        setEmpleado({...empleado, [e.target.name]: e.target.value})
+    }
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post(url, formState);
-        onResetForm();
+        await axios.put(`${url}/${id}`, empleado);
+        // Redirigimos a la pagina de inicio
         navegacion('/');
     }
-    
-    const { nombre, departamento, sueldo } = empleado;
     
     return (
         <>
@@ -46,7 +48,7 @@ export const EditEmpleado = () => {
                 </div>
 
                 <div className='container w-50'>
-                    <form onSubmit={onSubmit} action='/' method='post'>
+                    <form onSubmit={onSubmit}>
                         <div className="mb-3">
                             <label htmlFor="nombre" className="form-label">Nombre</label>
                             <input
@@ -91,12 +93,6 @@ export const EditEmpleado = () => {
                             <button type="submit"
                                 className="btn btn-outline-success btn-sm me-3">Modificar</button>
                             <a href='/' className='btn btn-outline-danger btn-sm me-3'>Regresar</a>
-
-                            <button
-                                type="reset"
-                                className="btn btn-outline-warning btn-sm me-3"
-                                onClick={onResetForm}
-                            >Limpiar</button>
                         </div>
                     </form>
                 </div>
