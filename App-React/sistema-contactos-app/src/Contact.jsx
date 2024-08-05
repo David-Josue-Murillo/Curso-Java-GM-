@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { ListContact } from "./components/ListContact"
 
 export const Contact = () => {
    return (
@@ -20,25 +20,7 @@ export const Contact = () => {
                      </tr>
                   </thead>
                   <tbody className="text-center">
-                     <tr>
-                        <th scope='row'>1</th>
-                        <td>Nombre</td>
-                        <td>Celular</td>
-                        <td>Email</td>
-                        <td className='d-flex justify-content-center gap-3'>
-                           <Link
-                              to='/editar/1'
-                              className='btn btn-outline-warning btn-sm'>
-                              Modificar
-                           </Link>
-
-                           <button
-                              data-id={1}
-                              className='btn btn-outline-danger btn-sm'>
-                              Eliminar
-                           </button>
-                        </td>
-                     </tr>
+                     <ListContact />
                   </tbody>
                </table>
             </div>
